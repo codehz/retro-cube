@@ -276,7 +276,7 @@ impl<'pass> Pass<'pass, GBufferRendererProvider> for GBufferRenderer {
         };
         let uniforms = Projection::new(
             aspect_ratio,
-            glam::vec3(38.0, 10.0, 38.0),
+            glam::vec3(9.0, 10.0, 9.0),
             glam::vec3(20.0, 0.0, 20.0),
         )
         .to_uniform();
