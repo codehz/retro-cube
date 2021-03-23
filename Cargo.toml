@@ -1,0 +1,14 @@
+[package]
+name = "retro-cube"
+version = "0.1.0"
+authors = ["CodeHz <codehz@outlook.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+glam = "0.13.0"
+glium = "0.29.0"
+anyhow = "*"
+pipeline = "0.5.0"
+dot_vox = "4.1.0"
