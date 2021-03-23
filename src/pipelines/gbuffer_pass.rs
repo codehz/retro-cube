@@ -209,18 +209,20 @@ fn gen_face(
     direction: world::Direction,
 ) {
     if let Some(target_pos) = direction.apply(world.dims(), pos) {
-        if !world.test(target_pos) {
-            mapped.set(
-                *i,
-                FaceInfo {
-                    position: pos.into(),
-                    color: blk.into(),
-                    face: direction.into(),
-                },
-            );
-            *i += 1;
+        if world.test(target_pos) {
+            return;
         }
     }
+
+    mapped.set(
+        *i,
+        FaceInfo {
+            position: pos.into(),
+            color: blk.into(),
+            face: direction.into(),
+        },
+    );
+    *i += 1;
 }
 
 impl GBufferRenderer {
@@ -274,7 +276,7 @@ impl<'pass> Pass<'pass, GBufferRendererProvider> for GBufferRenderer {
         };
         let uniforms = Projection::new(
             aspect_ratio,
-            glam::vec3(9.0, 8.0, 9.0),
+            glam::vec3(38.0, 10.0, 38.0),
             glam::vec3(20.0, 0.0, 20.0),
         )
         .to_uniform();
