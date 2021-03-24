@@ -60,5 +60,5 @@ void main() {
   float cd = length(color_diff);
   float score = min(1.0, float(nd + pd + cd > 1.0) + 0.02);
 
-  color = vec4(fetchColor(ivec2(0, 0)) * score, fetchPosition(ivec2(0.0)).z);
+  color = vec4(fetchColor(ivec2(0, 0)) * score, length(fetchPosition(ivec2(0.0))));
 }

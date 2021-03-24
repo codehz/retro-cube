@@ -26,7 +26,7 @@ impl SimplePostProcessPipeline for StrengthenPass {
     fn get_block() -> Self::Block {
         StrengthenBlock {
             near: -10.0,
-            far: 32.0,
+            far: 38.0,
         }
     }
 }
