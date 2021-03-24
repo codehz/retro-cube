@@ -27,8 +27,15 @@ float kernel[9] = float[9](
     // clang-format on
 );
 
+float get_position_score(vec3 curpos, vec3 curnorm, ivec2 pos) {
+  return dot(curpos - fetchPosition(pos), curnorm);
+}
+
 void main() {
-  vec3 position_diff;
+  vec3 cur_position = fetchPosition(ivec2(0, 0));
+  vec3 cur_normal = fetchNormal(ivec2(0, 0));
+
+  float position_score;
   vec3 normal_diff;
   vec3 color_diff;
 
@@ -36,14 +43,20 @@ void main() {
     for (int j = 0; j < 3; j++) {
       int idx = i + j * 3;
       ivec2 off = ivec2(i - 1, j - 1);
-      position_diff += fetchPosition(off) * kernel[idx];
       normal_diff += fetchNormal(off) * kernel[idx];
       color_diff += fetchColor(off) * kernel[idx];
     }
   }
 
+  position_score += get_position_score(cur_position, cur_normal, ivec2(-1, 0));
+  position_score += get_position_score(cur_position, cur_normal, ivec2(1, 0));
+  position_score += get_position_score(cur_position, cur_normal, ivec2(0, 1));
+  position_score += get_position_score(cur_position, cur_normal, ivec2(0, -1));
+
+  color = vec4(length(position_score));
+
   float nd = length(normal_diff);
-  float pd = length(position_diff);
+  float pd = position_score;
   float cd = length(color_diff);
   float score = float(nd + pd + cd > 1.0);
 
